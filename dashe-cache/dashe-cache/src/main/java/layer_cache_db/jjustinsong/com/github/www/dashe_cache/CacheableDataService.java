@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CacheableDataService {
 
+    private static final String USER_CACHE_PREFIX = "user::";
+    private static final String DOC_CACHE_PREFIX = "document::";
+
     @Autowired
     private CacheManager cacheManager;
 
@@ -13,7 +16,7 @@ public class CacheableDataService {
     private CacheDocumentRepository documentRepository;
 
     public CacheDocument getDocumentById(String documentId) {
-        String key = "document::" + documentId;
+        String key = USER_CACHE_PREFIX + documentid;
         CacheDocument cachedDocument = cacheManager.get(key, CacheDocument.class);
         if (cachedDocument != null) {
             return cachedDocument;
