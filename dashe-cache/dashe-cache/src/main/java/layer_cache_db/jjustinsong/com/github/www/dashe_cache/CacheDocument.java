@@ -20,4 +20,19 @@ public class CacheDocument implements Serializable {
     }
 
     // Getters and Setters
+    public String getId() {
+        return id;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 }
