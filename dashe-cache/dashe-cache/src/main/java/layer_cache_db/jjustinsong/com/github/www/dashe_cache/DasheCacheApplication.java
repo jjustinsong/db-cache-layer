@@ -2,6 +2,7 @@ package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import redis.clients.jedis.Jedis;
 
 @SpringBootApplication
 public class DasheCacheApplication {
