@@ -4,23 +4,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
-@Document(collection = "users")
-public class User implements Serializable {
+@Document(collection = "documents")
+public class CacheDocument implements Serializable {
     @Id
     private String id;
-    private String name;
-    private String email;
+    private String data;
 
     // Constructors
-    public User() {
+    public CacheDocument() {
     }
 
-    public User(String id, String name, String email) {
+    public CacheDocument(String id, String data) {
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.data = data;
     }
 
     // Getters and Setters
-    // (omitted for brevity)
 }
