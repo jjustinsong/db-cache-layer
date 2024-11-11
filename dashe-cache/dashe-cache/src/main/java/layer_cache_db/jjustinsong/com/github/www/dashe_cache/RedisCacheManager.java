@@ -1,6 +1,7 @@
 package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ public class RedisCacheManager implements CacheManager {
     public <T> T get(String key, Class<T> type) {
         try {
             return (T) redisTemplate.opsForValue().get(key);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
+            System.err.print("Failed to get in Redis" + e.getMessage())
             return null;
         }
     }
@@ -25,14 +27,18 @@ public class RedisCacheManager implements CacheManager {
     public <T> void set(String key, T data, long ttl) {
         try {
             redisTemplate.opsForValue().set(key, data, ttl, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            
+        } catch (DataAccessException e) {
+            System.err.print("Failed to set in Redis" + e.getMessage());
         }
     }
 
     @Override
     public void delete(String key) {
-        redisTemplate.delete(key);
+        try {
+            redisTemplate.delete(key);
+        } catch (DataAccessException e) {
+            System.err.print("Failed to delete in Redis" + e.getMessage());
+        }
     }
 
     @Override
