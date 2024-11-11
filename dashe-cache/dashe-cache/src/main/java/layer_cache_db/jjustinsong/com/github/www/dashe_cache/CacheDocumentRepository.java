@@ -1,6 +1,6 @@
 package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
 
-import com.yourpackage.model.CacheData;
+import com.yourpackage.model.CacheDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
