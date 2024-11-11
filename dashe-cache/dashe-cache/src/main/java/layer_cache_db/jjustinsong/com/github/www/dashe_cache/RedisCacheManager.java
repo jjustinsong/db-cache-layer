@@ -18,7 +18,7 @@ public class RedisCacheManager implements CacheManager {
         try {
             return (T) redisTemplate.opsForValue().get(key);
         } catch (DataAccessException e) {
-            System.err.print("Failed to get in Redis" + e.getMessage())
+            System.err.print("Failed to get in Redis" + e.getMessage());
             return null;
         }
     }
