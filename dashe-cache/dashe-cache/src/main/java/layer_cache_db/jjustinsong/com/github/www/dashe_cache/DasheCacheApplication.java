@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import redis.clients.jedis.Jedis;
 
 @SpringBootApplication
+@EnableCaching
 public class DasheCacheApplication {
 
 	public static void main(String[] args) {
