@@ -1,4 +1,4 @@
-package com.yourpackage.model;
+package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
