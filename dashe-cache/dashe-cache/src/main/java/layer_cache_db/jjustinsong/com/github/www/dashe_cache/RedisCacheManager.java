@@ -14,16 +14,34 @@ public class RedisCacheManager implements CacheManager {
 
     @Override
     public <T> T get(String key, Class<T> type) {
-        return (T) redisTemplate.opsForValue().get(key);
+        try {
+            return (T) redisTemplate.opsForValue().get(key);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public <T> void set(String key, T data, long ttl) {
-        redisTemplate.opsForValue().set(key, data, ttl, TimeUnit.SECONDS);
+        try {
+            redisTemplate.opsForValue().set(key, data, ttl, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            
+        }
     }
 
     @Override
     public void delete(String key) {
         redisTemplate.delete(key);
+    }
+
+    @Override
+    public boolean exists(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
+    @Override
+    public void expire(String key, long ttl) {
+        redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
     }
 }
