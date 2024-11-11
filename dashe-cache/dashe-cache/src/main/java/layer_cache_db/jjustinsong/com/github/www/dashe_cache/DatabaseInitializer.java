@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 public class DatabaseInitializer implements CommandLineRunner {
     private final MongoTemplate mongoTemplate;
+
     public DatabaseInitializer(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
