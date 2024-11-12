@@ -16,7 +16,7 @@ public class CacheableDataService {
     private CacheDocumentRepository documentRepository;
 
     public CacheableDataService(CacheDocumentRepository repo, RedisCacheManager<CacheDocument> cacheManager) {
-        this.repository = repo;
+        this.documentRepository = repo;
         this.cacheManager = cacheManager;
     }
 
