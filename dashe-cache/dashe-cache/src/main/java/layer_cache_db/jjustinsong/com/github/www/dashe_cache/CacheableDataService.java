@@ -10,13 +10,18 @@ public class CacheableDataService {
     private static final String DOC_CACHE_PREFIX = "document::";
 
     @Autowired
-    private CacheManager cacheManager;
+    private RedisCacheManager<CacheDocument> cacheManager;
 
     @Autowired
     private CacheDocumentRepository documentRepository;
 
+    public CacheableDataService(CacheDocumentRepository repo, RedisCacheManager<CacheDocument> cacheManager) {
+        this.repository = repo;
+        this.cacheManager = cacheManager;
+    }
+
     public CacheDocument getDocumentById(String documentId) {
-        String key = USER_CACHE_PREFIX + documentid;
+        String key = USER_CACHE_PREFIX + DOC_CACHE_PREFIX;
         CacheDocument cachedDocument = cacheManager.get(key, CacheDocument.class);
         if (cachedDocument != null) {
             return cachedDocument;
