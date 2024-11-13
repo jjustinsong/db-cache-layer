@@ -64,7 +64,16 @@
     		<artifactId>mongodb-driver-sync</artifactId>
     		<version>4.10.2</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.coody.framework</groupId>
+			<artifactId>coody-cache</artifactId>
+			<version>alpha-1.9.5</version>
+		</dependency>
+ </dependencies>
 
 	<build>
 		<plugins>

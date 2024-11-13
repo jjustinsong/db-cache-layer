@@ -2,12 +2,14 @@ package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.*;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class RedisConfig {
 
     /**
@@ -17,7 +19,7 @@ public class RedisConfig {
      * @return Configured RedisTemplate.
      */
     @Bean
-    @Primary // Marks this bean as the primary bean when multiple candidates are present
+    @Primary
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
