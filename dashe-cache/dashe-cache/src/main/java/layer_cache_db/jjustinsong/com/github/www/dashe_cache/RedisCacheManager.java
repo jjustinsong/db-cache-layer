@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @param <T> The type of data to cache.
  */
 @Service
-public class RedisCacheManager<T> {
+public class RedisCacheManager {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
 
@@ -101,5 +101,17 @@ public class RedisCacheManager<T> {
         } catch (DataAccessException e) {
             logger.error("Failed to set expiration in Redis for key {}: {}", key, e.getMessage());
         }
+    }
+
+    public <T> T getFromCache(String key, Class<T> type) {
+        return (T) redisTemplate.opsForValue().get(key);
+    }
+
+    public <T> void saveToCache(String key, T data, long ttlInSeconds) {
+        redisTemplate.opsForValue().set(key, data, ttlInSeconds);
+    }
+
+    public void removeFromCache(String key) {
+        redisTemplate.delete(key);
     }
 }
