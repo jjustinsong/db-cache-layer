@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Service class for managing Redis cache operations.
@@ -15,14 +15,14 @@ import org.slf4j.LoggerFactory;
  * @param <T> The type of data to cache.
  */
 @Service
-public class RedisCacheManager {
+public class RedisCacheService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisCacheService.class);
 
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public RedisCacheManager(RedisTemplate<String, Object> redisTemplate) {
+    public RedisCacheService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -68,14 +68,35 @@ public class RedisCacheManager {
         }
     }
 
+    /**
+     * Retrieves an object from the cache.
+     *
+     * @param key  The cache key.
+     * @param type The class type of the object.
+     * @param <T>  The type parameter.
+     * @return The cached object or null if not found.
+     */
     public <T> T getFromCache(String key, Class<T> type) {
         return (T) redisTemplate.opsForValue().get(key);
     }
-        
+
+    /**
+     * Saves an object to the cache with an expiration time.
+     *
+     * @param key          The cache key.
+     * @param data         The data to cache.
+     * @param ttlInSeconds Time-To-Live in seconds.
+     * @param <T>          The type parameter.
+     */
     public <T> void saveToCache(String key, T data, long ttlInSeconds) {
-        redisTemplate.opsForValue().set(key, data, ttlInSeconds);
+        redisTemplate.opsForValue().set(key, data, ttlInSeconds, TimeUnit.SECONDS);
     }
-        
+
+    /**
+     * Removes an object from the cache.
+     *
+     * @param key The cache key.
+     */
     public void removeFromCache(String key) {
         redisTemplate.delete(key);
     }
