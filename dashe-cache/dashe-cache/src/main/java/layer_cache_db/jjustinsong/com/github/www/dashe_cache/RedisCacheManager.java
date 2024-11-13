@@ -27,41 +27,6 @@ public class RedisCacheManager {
     }
 
     /**
-     * Retrieves a cached object by key.
-     *
-     * @param key  The cache key.
-     * @param type The class type of the object.
-     * @return The cached object or null if not found.
-     */
-    public T get(String key, Class<T> type) {
-        try {
-            Object value = redisTemplate.opsForValue().get(key);
-            if (value != null && type.isInstance(value)) {
-                return type.cast(value);
-            }
-            return null;
-        } catch (DataAccessException e) {
-            logger.error("Failed to get from Redis for key {}: {}", key, e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Sets a cached object with a specific TTL.
-     *
-     * @param key  The cache key.
-     * @param data The data to cache.
-     * @param ttl  Time-To-Live in seconds.
-     */
-    public void set(String key, T data, long ttl) {
-        try {
-            redisTemplate.opsForValue().set(key, data, ttl, TimeUnit.SECONDS);
-        } catch (DataAccessException e) {
-            logger.error("Failed to set in Redis for key {}: {}", key, e.getMessage());
-        }
-    }
-
-    /**
      * Deletes a cached object by key.
      *
      * @param key The cache key.
