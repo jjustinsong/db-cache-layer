@@ -1,4 +1,4 @@
-package layer_cache_db.jjustinsong.com.github.www.dashe_cache;
+package DasheCache;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
