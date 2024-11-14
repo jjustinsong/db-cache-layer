@@ -26,7 +26,7 @@ public class DasheCacheApplication implements CommandLineRunner {
         // Example usage of UserProfileService with caching enabled
 
         // Define an ID for testing purposes
-        String userId = "5a9427648b0beebeb69579e7";
+        String userId = "5a9427648b0beebeb6957a38";
 
         // First retrieval (should fetch from MongoDB and cache the result)
         CacheDocument userProfile = userProfileService.getUserProfileById(userId);

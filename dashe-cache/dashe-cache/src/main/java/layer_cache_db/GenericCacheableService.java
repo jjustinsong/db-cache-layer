@@ -54,4 +54,13 @@ public class GenericCacheableService<T, ID> {
             return data;
         }
     }
+
+    /*public T mongoLookup(ID id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Cacheable(value="generic_cache", key="#id")
+    public T findById(ID id) {
+        return mongoLookup(id);
+    }*/
 }
