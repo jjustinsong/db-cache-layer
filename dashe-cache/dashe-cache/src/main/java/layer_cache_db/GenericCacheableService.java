@@ -46,6 +46,7 @@ public class GenericCacheableService<T, ID> {
         if (cachedData != null) {
             return cachedData;
         } else {
+            System.out.println("Looking in database");
             T data = repository.findById(id).orElse(null);
             if (data != null) {
                 cacheService.saveToCache(cacheName, key, data, defaultTtl);
