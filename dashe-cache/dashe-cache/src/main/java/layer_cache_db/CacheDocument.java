@@ -8,7 +8,7 @@ public class CacheDocument {
     @Id
     private String id;
     private String name;
-    private String email;
 
     // Getters and Setters...
+
 }
