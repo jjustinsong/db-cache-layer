@@ -15,7 +15,7 @@ public class GenericCacheableService<T, ID> {
     private final GenericRepository<T, ID> repository;
     private final RedisCacheService cacheService;
     private final long defaultTtl = 3600; // Default cache time-to-live in seconds
-    // private final Class<T> type;
+    private final Class<T> type;
     private final String cacheName;
 
     /**
@@ -27,9 +27,11 @@ public class GenericCacheableService<T, ID> {
      */
     @Autowired
     public GenericCacheableService(GenericRepository<T, ID> repository,
-            RedisCacheService cacheService) {
+            RedisCacheService cacheService,
+            Class<T> type) {
         this.repository = repository;
         this.cacheService = cacheService;
+        this.type = type;
         this.cacheName = "generic_cache"; // Define a consistent cache name or parameterize as needed
     }
 
