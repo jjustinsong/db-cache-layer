@@ -5,11 +5,12 @@ import org.springframework.stereotype.Service;
 import layer_cache_db.CacheDocument;
 import layer_cache_db.CacheDocumentRepository;
 import layer_cache_db.GenericCacheableService;
+import org.bson.types.ObjectId;
 
 @Service
 public class UserProfileService {
 
-    private final GenericCacheableService<CacheDocument, String> cacheableDataService;
+    private final GenericCacheableService<CacheDocument, ObjectId> cacheableDataService;
 
     @Autowired
     public UserProfileService(CacheDocumentRepository userProfileRepository, RedisCacheService redisCacheService) {
@@ -17,6 +18,7 @@ public class UserProfileService {
     }
 
     public CacheDocument getUserProfileById(String id) {
-        return cacheableDataService.findById(id);
+        ObjectId objectId = new ObjectId(id);
+        return cacheableDataService.findById(objectId);
     }
 }
