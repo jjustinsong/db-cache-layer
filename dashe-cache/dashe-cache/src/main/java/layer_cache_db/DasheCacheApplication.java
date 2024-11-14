@@ -8,7 +8,29 @@ import redis.clients.jedis.Jedis;
 
 @SpringBootConfiguration
 public class DasheCacheApplication {
+	private final UserProfileService userProfileService;
+
+	@Autowired
+	public DasheCacheApplication(UserProfileService userProfileService) {
+		this.userProfileService = userProfileService;
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(DasheCacheApplication.class, args);
 	}
+
+	@Override
+	public void run(String... args) throws Exception {
+        // Example usage of UserProfileService with caching enabled
+
+        // Define an ID for testing purposes
+        String userId = "123";
+
+        // First retrieval (should fetch from MongoDB and cache the result)
+        CacheDocument userProfile = userProfileService.getUserProfileById(userId);
+        System.out.println("User profile fetched: " + userProfile);
+
+        // Second retrieval (should fetch directly from cache)
+        CacheDocument cachedUserProfile = userProfileService.getUserProfileById(userId);
+        System.out.println("User profile fetched from cache: " + cachedUserProfile);
+    }
 }
