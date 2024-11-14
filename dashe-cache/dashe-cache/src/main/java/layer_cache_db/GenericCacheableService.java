@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
  * @param <T>  The type of the entity.
  * @param <ID> The type of the entity's identifier.
  */
+@Service
 public class GenericCacheableService<T, ID> {
 
     private final GenericRepository<T, ID> repository;
@@ -25,6 +26,7 @@ public class GenericCacheableService<T, ID> {
      * @param cacheService The RedisCacheService for cache operations.
      * @param type         The Class type of the entity.
      */
+    @Autowired
     public GenericCacheableService(GenericRepository<T, ID> repository,
             RedisCacheService cacheService,
             Class<T> type) {

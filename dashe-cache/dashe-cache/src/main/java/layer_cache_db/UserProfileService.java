@@ -12,8 +12,8 @@ public class UserProfileService {
     private final GenericCacheableService<CacheDocument, String> cacheableDataService;
 
     @Autowired
-    public UserProfileService(CacheDocumentRepository userProfileRepository, RedisCacheService redisCacheService) {
-        // No need to pass Class<T> as a parameter, directly use CacheDocument.class
+    public <T> UserProfileService(CacheDocumentRepository userProfileRepository, RedisCacheService redisCacheService,
+            Class<T> type) {
         this.cacheableDataService = new GenericCacheableService<>(userProfileRepository, redisCacheService,
                 CacheDocument.class);
     }
