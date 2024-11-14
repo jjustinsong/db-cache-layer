@@ -52,6 +52,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+    		</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -66,15 +72,6 @@
     		<groupId>org.mongodb</groupId>
     		<artifactId>mongodb-driver-sync</artifactId>
     		<version>4.10.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.coody.framework</groupId>
-			<artifactId>coody-cache</artifactId>
-			<version>alpha-1.9.5</version>
 		</dependency>
  </dependencies>
 
