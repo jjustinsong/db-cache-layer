@@ -42,7 +42,6 @@ public class GenericCacheableService<T, ID> {
      * @param id The identifier of the entity.
      * @return The entity if found, otherwise null.
      */
-    @Cacheable(value = "cache_documents", key = "#id")
     public T findById(ID id) {
         String key = "cache:" + id.toString();
         T cachedData = cacheService.getFromCache(cacheName, key, type);
