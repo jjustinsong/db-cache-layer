@@ -58,6 +58,7 @@ public class RedisConfig {
      * @return Configured CacheManager.
      */
     @Bean
+    @Primary
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         // Define serialization for keys and values
         RedisSerializer<String> keySerializer = new StringRedisSerializer();
