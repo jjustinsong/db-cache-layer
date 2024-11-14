@@ -8,20 +8,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import redis.clients.jedis.Jedis;
 
-@SpringBootConfiguration
-public class DasheCacheApplication implements CommandLineRunner{
-	private final UserProfileService userProfileService;
+@SpringBootApplication
+public class DasheCacheApplication implements CommandLineRunner {
+    private final UserProfileService userProfileService;
 
-	@Autowired
-	public DasheCacheApplication(UserProfileService userProfileService) {
-		this.userProfileService = userProfileService;
-	}
-	public static void main(String[] args) {
-		SpringApplication.run(DasheCacheApplication.class, args);
-	}
+    @Autowired
+    public DasheCacheApplication(UserProfileService userProfileService) {
+        this.userProfileService = userProfileService;
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    public static void main(String[] args) {
+        SpringApplication.run(DasheCacheApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
         // Example usage of UserProfileService with caching enabled
 
         // Define an ID for testing purposes

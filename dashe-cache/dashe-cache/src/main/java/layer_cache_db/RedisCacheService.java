@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @param <T> The type of data to cache.
  */
 @Service
+@RedisHash
 public class RedisCacheService {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCacheService.class);
