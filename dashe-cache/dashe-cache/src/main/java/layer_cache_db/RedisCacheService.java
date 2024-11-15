@@ -23,13 +23,14 @@ public class RedisCacheService {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCacheService.class);
 
-    // private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     private final CacheManager cacheManager;
 
     @Autowired
-    public RedisCacheService(CacheManager cacheManager) {
+    public RedisCacheService(CacheManager cacheManager, RedisTemplate<String, Object> redisTemplate) {
         this.cacheManager = cacheManager;
+        this.redisTemplate = redisTemplate;
     }
 
     /**
@@ -151,68 +152,63 @@ public class RedisCacheService {
      *
      * @param key The cache key.
      * 
-     *            public void delete(String key) {
-     *            try {
-     *            redisTemplate.delete(key);
-     *            } catch (DataAccessException e) {
-     *            logger.error("Failed to delete from Redis for key {}: {}", key,
-     *            e.getMessage());
-     *            }
-     *            }
      */
 
+    public void delete(String key) {
+        try {
+            redisTemplate.delete(key);
+        } catch (DataAccessException e) {
+            logger.error("Failed to delete from Redis for key {}: {}", key,
+                    e.getMessage());
+        }
+    }
+
     /*
-     * @Autowired
-     * public RedisCacheService(RedisTemplate<String, Object> redisTemplate) {
-     * this.redisTemplate = redisTemplate;
-     * }
-     */
-    /*
-     * /**
      * Checks if a key exists in Redis.
      *
      * @param key The cache key.
      * 
      * @return True if the key exists, false otherwise.
-     * 
-     * public boolean exists(String key) {
-     * try {
-     * return redisTemplate.hasKey(key);
-     * } catch (DataAccessException e) {
-     * logger.error("Failed to check existence in Redis for key {}: {}", key,
-     * e.getMessage());
-     * return false;
-     * }
-     * }
      */
+    public boolean exists(String key) {
+        try {
+            return redisTemplate.hasKey(key);
+        } catch (DataAccessException e) {
+            logger.error("Failed to check existence in Redis for key {}: {}", key,
+                    e.getMessage());
+            return false;
+        }
+    }
 
     /**
      * Sets the expiration time for a key.
      *
-     * @param key  The cache key.
-     * @param ttl  Time-To-Live in seconds.
-     * 
-     *             public void expire(String key, long ttl) {
-     *             try {
-     *             redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
-     *             } catch (DataAccessException e) {
-     *             logger.error("Failed to set expiration in Redis for key {}: {}",
-     *             key, e.getMessage());
-     *             }
-     *             }
-     * 
-     *             /**
-     *             Retrieves an object from the cache.
-     *
-     * @param key  The cache key.
-     * @param type The class type of the object.
-     * @param <T>  The type parameter.
-     * @return The cached object or null if not found.
-     * 
-     *         public <T> T getFromCache(String key, Class<T> type) {
-     *         return (T) redisTemplate.opsForValue().get(key);
-     *         }
+     * @param key The cache key.
+     * @param ttl Time-To-Live in seconds.
      */
+    public void expire(String key, long ttl) {
+        try {
+            redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
+        } catch (DataAccessException e) {
+            logger.error("Failed to set expiration in Redis for key {}: {}",
+                    key, e.getMessage());
+        }
+    }
+
+    /*
+     * Retrieves an object from the cache.
+     *
+     * @param key The cache key.
+     * 
+     * @param type The class type of the object.
+     * 
+     * @param <T> The type parameter.
+     * 
+     * @return The cached object or null if not found.
+     */
+    public <T> T getFromCache(String key, Class<T> type) {
+        return (T) redisTemplate.opsForValue().get(key);
+    }
 
     /**
      * Saves an object to the cache with an expiration time.
@@ -222,19 +218,17 @@ public class RedisCacheService {
      * @param ttlInSeconds Time-To-Live in seconds.
      * @param <T>          The type parameter.
      */
-    /*
-     * public <T> void saveToCache(String key, T data, long ttlInSeconds) {
-     * redisTemplate.opsForValue().set(key, data, ttlInSeconds, TimeUnit.SECONDS);
-     * }
-     */
+    public <T> void saveToCache(String key, T data, long ttlInSeconds) {
+        redisTemplate.opsForValue().set(key, data, ttlInSeconds, TimeUnit.SECONDS);
+    }
 
     /**
      * Removes an object from the cache.
      *
      * @param key The cache key.
-     * 
-     *            public void removeFromCache(String key) {
-     *            redisTemplate.delete(key);
-     *            }
      */
+    public void removeFromCache(String key) {
+        redisTemplate.delete(key);
+    }
+
 }

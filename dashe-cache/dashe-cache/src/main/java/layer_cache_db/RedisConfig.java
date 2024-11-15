@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-// import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.*;
 
 import java.time.Duration;
@@ -22,34 +22,26 @@ public class RedisConfig {
      *
      * @param connectionFactory The RedisConnectionFactory provided by Spring Boot.
      * @return Configured RedisTemplate.
-     * 
-     * @Bean
-     * @Primary
-     *          public RedisTemplate<String, Object>
-     *          redisTemplate(RedisConnectionFactory connectionFactory) {
-     *          RedisTemplate<String, Object> template = new RedisTemplate<>();
-     *          template.setConnectionFactory(connectionFactory);
-     * 
-     *          // Define the serializers
-     *          StringRedisSerializer stringSerializer = new
-     *          StringRedisSerializer();
-     *          GenericJackson2JsonRedisSerializer jsonSerializer = new
-     *          GenericJackson2JsonRedisSerializer();
-     * 
-     *          // Set the key serializer to StringRedisSerializer
-     *          template.setKeySerializer(stringSerializer);
-     *          template.setHashKeySerializer(stringSerializer);
-     * 
-     *          // Set the value serializer to GenericJackson2JsonRedisSerializer
-     *          template.setValueSerializer(jsonSerializer);
-     *          template.setHashValueSerializer(jsonSerializer);
-     * 
-     *          // Initialize the template
-     *          template.afterPropertiesSet();
-     * 
-     *          return template;
-     *          }
      */
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+
+        // Configure the serializers
+        StringRedisSerializer keySerializer = new StringRedisSerializer();
+        GenericJackson2JsonRedisSerializer valueSerializer = new GenericJackson2JsonRedisSerializer();
+
+        // Set key and value serializers
+        template.setKeySerializer(keySerializer);
+        template.setValueSerializer(valueSerializer);
+        template.setHashKeySerializer(keySerializer);
+        template.setHashValueSerializer(valueSerializer);
+
+        // Initialize the template
+        template.afterPropertiesSet();
+        return template;
+    }
 
     /**
      * Configures and returns a RedisCacheManager bean.
